@@ -1,31 +1,40 @@
 package br.com.prodiga
 
+import com.google.gson.Gson
+
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
+import java.util.Scanner
+import kotlin.NullPointerException
 
 
 fun main() {
+    val leitura = Scanner(System.`in`)
+    println("digite um codigo de jogo pra buscar")
+    val busca = leitura.nextLine()
+    val endereco = "https://www.cheapshark.com/api/1.0/games?id=$busca"
     val client: HttpClient = HttpClient.newHttpClient()
+
     val  request = HttpRequest.newBuilder()
-        .uri(URI.create("https://www.cheapshark.com/api/1.0/games?id=146"))
+        .uri(URI.create(endereco))
         .build()
-
-
     val response = client
         .send(request, HttpResponse.BodyHandlers.ofString())
-    val json = response.body()
-    println(json)
+    val Json = response.body()
+        println(Json)
 
-    val meuJogo = Jogo(
-        "Batman: Arkham Asylum Game of the Year Edition",
-        "https:\\/\\/cdn.cloudflare.steamstatic.com\\/steam\\/apps\\/35140\\/capsule_sm_120.jpg?t=1681938587")
-    println(meuJogo)
+    val gson = Gson()
+    val meuInfojogo = gson.fromJson(Json, InfoJogo::class.java)
 
- // pode alterar os lados
-    val novoJogo = Jogo(
-        capa = "https:\\/\\/cdn.cloudflare.steamstatic.com\\/steam\\/apps\\/35140\\/capsule_sm_120.jpg?t=1681938587",
-        titulo = "Batman: Arkham Asylum Game of the Year Edition")
-    println(novoJogo)
+    val resultado = runCatching {
+        val meuJogo = Jogo(
+            meuInfojogo.info.title,
+            meuInfojogo.info.thumb)
+        println(meuJogo)
+    }
+   resultado.onFailure {
+       println("Erro, não encontrado")
+   }
 }
