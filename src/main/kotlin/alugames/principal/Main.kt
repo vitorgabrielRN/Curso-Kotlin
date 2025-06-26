@@ -3,6 +3,7 @@ package br.com.prodiga.alugames.principal
 import Service.ConsumoApi
 import alugames.model.Gamer
 import alugames.model.Jogo
+import transformarEmIdade
 import java.util.*
 
 
@@ -11,6 +12,7 @@ fun main() {
     val gamer = Gamer.criarGamer(leitura)
     println("Cadastro concluido com sucesso")
     println(gamer)
+    println("Idade do gamer:  " + gamer.dataNascimento?.transformarEmIdade())
 
     do {
 
@@ -49,8 +51,39 @@ fun main() {
 
 
     } while (resposta.equals("s", true))
+
+
     println("jogos buscado")
     println(gamer.jogosBuscados)
+    println("\n jogos por titulo: ")
+    gamer.jogosBuscados.sortBy {
+        it?.titulo
+    }
+    gamer.jogosBuscados.forEach{
+        println("TITULOS: " + it?.titulo)
+    }
+
+    val jogoFiltrados = gamer.jogosBuscados.filter {
+        it?.titulo?.contains("batman", true) ?:false
+    }
+
+    println("\n jogosfiltrados")
+    println(jogoFiltrados)
+
+    println("deseja apagar algum jogo da lista origina? S/N")
+    val opcao = leitura.nextLine()
+    if(opcao.equals("s", true)){
+        println(gamer.jogosBuscados)
+        println("qual é o numero que o jogo está na lista")
+        val posicao = leitura.nextInt()
+        gamer.jogosBuscados.removeAt(posicao)
+
+    }
+    println("\n Lista atualizada: ")
+    println(gamer.jogosBuscados)
+
     println("busca finalizada com sucesso")
+
+
 
 }

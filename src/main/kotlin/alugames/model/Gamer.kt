@@ -25,12 +25,12 @@ data class Gamer(var nome:String, var email:String){
              this.usuario = usuario
              criarIdInterno()
             }
-    init {
-        if(nome.isNullOrBlank()){
-            throw  IllegalArgumentException("nome invalido")
-        }
-        this.email = validarEmail()
-    }
+//    init {
+//        if(nome.isNullOrBlank()){
+//            throw  IllegalArgumentException("nome invalido")
+//        }
+//        this.email = validarEmail()
+//    }
 
 
 
