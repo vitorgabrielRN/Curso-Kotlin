@@ -1,5 +1,7 @@
 package alugames.model
 
+import alugames.Service.Periodo
+import java.time.LocalDate
 import java.util.*
 import kotlin.random.Random
 
@@ -16,21 +18,22 @@ data class Gamer(var nome:String, var email:String){
 
     var idInterno:String? = null
         private set
-
+    var plano: PlanoAvulso = PlanoAvulso("BRONZE")
     val jogosBuscados = mutableListOf<Jogo?>()
+    val jogosAluguel = mutableListOf<Aluguel>()
 
     constructor(nome: String, email: String, dataNascimento:String, usuario:String):
             this(nome, email) {
-             this.dataNascimento = dataNascimento
-             this.usuario = usuario
-             criarIdInterno()
-            }
-//    init {
-//        if(nome.isNullOrBlank()){
-//            throw  IllegalArgumentException("nome invalido")
-//        }
-//        this.email = validarEmail()
-//    }
+        this.dataNascimento = dataNascimento
+        this.usuario = usuario
+        criarIdInterno()
+    }
+    init {
+        if (nome.isNullOrBlank()) {
+            throw IllegalArgumentException("Nome está em branco")
+        }
+        this.email = validarEmail()
+    }
 
 
 
@@ -52,7 +55,17 @@ data class Gamer(var nome:String, var email:String){
         } else{
             throw IllegalArgumentException("Faça novamente o EMAIL")
         }
+    }
 
+    fun alugaJogo(Jogo: Jogo, periodo: Periodo ): Aluguel{
+        val aluguel = Aluguel(this, Jogo, periodo)
+        jogosAluguel.add(aluguel)
+        return  aluguel
+    }
+
+    fun jogosDoMes(mes: Int): List<Jogo>{
+        return jogosAluguel.filter { aluguel -> aluguel.periodo.dataInicial.monthValue == mes }
+            .map { aluguel -> aluguel.jogo}
     }
 
     companion object{
@@ -75,7 +88,6 @@ data class Gamer(var nome:String, var email:String){
             }
         }
     }
-
 }
 
 

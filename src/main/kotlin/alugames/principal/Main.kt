@@ -1,6 +1,6 @@
 package br.com.prodiga.alugames.principal
 
-import Service.ConsumoApi
+import alugames.Service.ConsumoApi
 import alugames.model.Gamer
 import alugames.model.Jogo
 import transformarEmIdade
@@ -12,7 +12,8 @@ fun main() {
     val gamer = Gamer.criarGamer(leitura)
     println("Cadastro concluido com sucesso")
     println(gamer)
-    println("Idade do gamer:  " + gamer.dataNascimento?.transformarEmIdade())
+    println("Idade do gamer:  " +
+            gamer.dataNascimento?.transformarEmIdade())
 
     do {
 
