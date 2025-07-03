@@ -1,6 +1,8 @@
 package alugames.model
 
-data class Jogo( val titulo:String, val capa:String): JogosRecomendados {
+import com.google.gson.annotations.Expose
+
+data class Jogo(@Expose val titulo:String, @Expose val capa:String): JogosRecomendados {
 
     var descricao:String? = null
     var preco = 0.0
@@ -24,6 +26,6 @@ data class Jogo( val titulo:String, val capa:String): JogosRecomendados {
     }
 
     override fun toString(): String {
-        return "Jogo(titulo='$titulo', capa='$capa', descricao=$descricao, preco=$preco)"
+        return "Jogo(titulo='$titulo',  capa='$capa', descricao=$descricao, preco=$preco)"
     }
 }
