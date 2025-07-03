@@ -2,6 +2,7 @@ package alugames.principal
 
 import alugames.Service.ConsumoApi
 import alugames.Service.Periodo
+import alugames.model.PlanoAssinatura
 import java.time.LocalDate
 import kotlin.time.Duration.Companion.days
 
@@ -30,6 +31,21 @@ fun main() {
     gamerCaroline.alugaJogo(jogoResidentVillage, periodo)
     gamerCaroline.alugaJogo(jogoSpider, periodo2)
     gamerCaroline.alugaJogo(jogoTLOU, periodo3)
+   println(gamerCaroline.jogosAluguel)
 
-    println(gamerCaroline.jogosAluguel)
+    val gamerCamila = listaGamer.get(5)
+    gamerCamila.plano = PlanoAssinatura("PRATA", 39.9, 3, 0.15)
+    gamerCamila.alugaJogo(jogoSpider,periodo)
+    gamerCamila.alugaJogo(jogoTLOU,periodo3)
+    gamerCamila.alugaJogo(jogoResidentVillage,periodo2)
+    println(gamerCamila.jogosAluguel)
+
+    gamerCamila.recomendar(7)
+    gamerCamila.recomendar(10)
+    gamerCamila.recomendar(8)
+    println(gamerCamila)
+
+    gamerCamila.alugaJogo(jogoTLOU, periodo)
+    println(gamerCamila.jogosAluguel)
+
 }

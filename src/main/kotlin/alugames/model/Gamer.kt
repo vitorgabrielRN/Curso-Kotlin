@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.util.*
 import kotlin.random.Random
 
-data class Gamer(var nome:String, var email:String){
+data class Gamer(var nome:String, var email:String): Recomendavel {
     var dataNascimento:String? = null
 
     var usuario:String? = null
@@ -18,9 +18,21 @@ data class Gamer(var nome:String, var email:String){
 
     var idInterno:String? = null
         private set
-    var plano: PlanoAvulso = PlanoAvulso("BRONZE")
+    var plano: Plano = PlanoAvulso("BRONZE")
     val jogosBuscados = mutableListOf<Jogo?>()
     val jogosAluguel = mutableListOf<Aluguel>()
+    private val listaNotas = mutableListOf<Int>()
+
+    override val media: Double
+        get() = listaNotas.average()
+
+    override fun recomendar(nota: Int) {
+        if(nota < 1 || nota > 10){
+            println("nota invalida. insira uma nota entre 1 e 10")
+        } else {
+            listaNotas.add(nota)
+        }
+    }
 
     constructor(nome: String, email: String, dataNascimento:String, usuario:String):
             this(nome, email) {
@@ -38,7 +50,7 @@ data class Gamer(var nome:String, var email:String){
 
 
     override fun toString(): String {
-        return "Gamer(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, idInterno=$idInterno)"
+        return "Gamer(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, idInterno=$idInterno ) + $media"
     }
 
     fun criarIdInterno(){
