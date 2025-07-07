@@ -5,25 +5,30 @@ import alugames.model.JogoEntity
 import javax.persistence.EntityManager
 
 
-class JogosDAO(val manager: EntityManager): DAO<Jogo>(){
+class JogosDAO(manager: EntityManager): DAO<Jogo, JogoEntity>( manager, JogoEntity::class.java){
+
+
     override  fun getLista(): List<Jogo> {
-        val query = manager.createQuery("FROM JogoEntity", JogoEntity::class.java)
-        return query.resultList.map { entity ->
-            Jogo(
-                entity.titulo,
-                entity.capa,
-                entity.preco,
-                entity.descricao,
-                entity.id
-            )
-        }
 
     }
-   override fun adicionar(jogo: Jogo) {
-        val entity = JogoEntity(jogo.titulo, jogo.capa, jogo.preco, jogo.descricao)
-        manager.transaction.begin()
-        manager.persist(entity)
-        manager.transaction.commit()
+
+    override fun toEntity(objeto: Jogo): JogoEntity {
+        return JogoEntity(
+            objeto.titulo,
+            objeto.capa,
+            objeto.preco,
+            objeto.descricao,
+            objeto.id)
+    }
+
+    override fun toModel(entity: JogoEntity): JogoEntity {
+        return JogoEntity(
+            objeto.titulo,
+            objeto.capa,
+            objeto.preco,
+            objeto.descricao,
+            objeto.id)
+    }
     }
 
 
