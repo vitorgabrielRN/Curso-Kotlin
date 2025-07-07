@@ -25,6 +25,11 @@ class PlanoAssinatura(
     }
 
     override fun toString(): String {
-        return "PlanoAssinatura(mensalidade=$mensalidade, jogosIncluidos=$jogosIncluidos, perccentualDesconto=$perccentualDesconto)"
+        return "Plano Assinatura\n" +
+                "Tipo: $tipo\n" +
+                "Id: $id\n" +
+                "Mensalidade: $mensalidade\n" +
+                "Jogos Incluidos: $jogosIncluidos\n" +
+                "Percentual Desconto Reputacao: $perccentualDesconto\n"
     }
 }

@@ -1,8 +1,7 @@
 package alugames.model
 
 import alugames.Service.Periodo
-import java.time.LocalDate
-import java.util.*
+import java.util.Scanner
 import kotlin.random.Random
 
 data class Gamer(var nome:String, var email:String): Recomendavel {
@@ -15,7 +14,9 @@ data class Gamer(var nome:String, var email:String): Recomendavel {
                 criarIdInterno()
             }
         }
+
     var id = 0
+
     var idInterno:String? = null
         private set
     var plano: Plano = PlanoAvulso("BRONZE")
@@ -40,10 +41,11 @@ data class Gamer(var nome:String, var email:String): Recomendavel {
         jogosRecomendados.add(jogo)
     }
 
-    constructor(nome: String, email: String, dataNascimento:String, usuario:String):
+    constructor(nome: String, email: String, dataNascimento:String?, usuario:String?, id: Int = 0):
             this(nome, email) {
         this.dataNascimento = dataNascimento
         this.usuario = usuario
+        this.id = id
         criarIdInterno()
     }
     init {
@@ -82,7 +84,14 @@ data class Gamer(var nome:String, var email:String): Recomendavel {
     }
 
     override fun toString(): String {
-        return "Gamer(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, id=$id, idInterno=$idInterno, plano=$plano, jogosBuscados=$jogosBuscados, jogosAluguel=$jogosAluguel, listaNotas=$listaNotas, jogosRecomendados=$jogosRecomendados, media=$media)"
+        return "Gamer:\n" +
+                "Nome: $nome\n" +
+                "Email: $email\n" +
+                "Data Nascimento: $dataNascimento\n" +
+                "Usuario: $usuario\n" +
+                "IdInterno: $idInterno\n" +
+                "Reputação: $media\n" +
+                "Id: $id"
     }
 
     companion object{

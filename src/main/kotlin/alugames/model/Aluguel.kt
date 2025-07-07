@@ -1,8 +1,6 @@
 package alugames.model
 
 import alugames.Service.Periodo
-import java.time.LocalDate
-import java.time.Period
 
 data class Aluguel(
     val gamer: Gamer,
